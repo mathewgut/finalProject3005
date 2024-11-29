@@ -106,6 +106,7 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
+    <ClCompile Include="src\password-game-method.cpp" />
     <ClCompile Include="..\..\..\addons\ofxImGui\src\BaseEngine.cpp" />
     <ClCompile Include="..\..\..\addons\ofxImGui\src\DefaultTheme.cpp" />
     <ClCompile Include="..\..\..\addons\ofxImGui\src\EngineGLFW.cpp" />
