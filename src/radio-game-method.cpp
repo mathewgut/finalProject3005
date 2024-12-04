@@ -24,7 +24,7 @@ void ofApp::readPotentiometer() {
 	cout << potValue << endl;
 }
 
-void ofApp::radioFader(float fadeValue, float volume1, float volume2, float volume3, float volume4) {
+bool ofApp::radioFader(float fadeValue, float volume1, float volume2, float volume3, float volume4, int PIN_BUTTON_5, ofArduino m_arduino) {
 	//increases and lowers volume levels as potentiometer's range is swept through
 
 	//fadeValue = ofMap(ofToInt(potValue), 0, 1024, 0, 1, true);	  // for potentiometer
@@ -40,6 +40,9 @@ void ofApp::radioFader(float fadeValue, float volume1, float volume2, float volu
 	else if (0.2f < fadeValue <= 3.5f) {
 		volume2 = 1.0f - (fadeValue - 0.1667f) * 5;
 		volume1 = (fadeValue - 0.1667f) * 5;
+		if (pinNum == PIN_BUTTON_5 && m_arduino.getDigital(pinNum) == 0) {
+		return 1;
+		}
 	}
 	else if (3.5f < fadeValue <= 0.4f) {
 		volume1 = 1.0f - (fadeValue - 0.3333f) * 5;
@@ -62,4 +65,6 @@ void ofApp::radioFader(float fadeValue, float volume1, float volume2, float volu
 	sound_brightside.setVolume(volume2);
 	sound_station1.setVolume(volume3);
 	sound_station2.setVolume(volume4);
+
+	return 0;
 }
