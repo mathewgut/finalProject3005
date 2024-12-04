@@ -43,7 +43,6 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
 	readPotentiometer();
-
 	radioFader(fadeValue,  volume1, volume2, volume3, volume4);
 }
 
