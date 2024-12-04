@@ -1,21 +1,25 @@
 #include "ofApp.h"
 #include "password-game-method.cpp"
+#include "search-game-methods.cpp"
 
 //--------------------------------------------------------------
 void ofApp::setup() {
     ofSetWindowShape(1280, 720);
-
+    searchGameSetup();
     passwordGameSetup();
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
+    updateArduino();
     passwordGameUpdate();
+    //searchGameUpdate();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
 
+    
     displayCode();
     
     if (introComplete = 0 && searchComplete == 0 && passwordComplete == 0 && radioComplete == 0)
@@ -96,6 +100,29 @@ void ofApp::digitalPinChanged(const int& pinNum) {
         m_code[3] = (m_code[3] + 1)%10;  // Increment the fourth code digit (0-9)
     }
 }
+
+// stores which object color is being applied to
+vector<int> currColorObject;
+//--------------------------------------------------------------
+void ofApp::mousePressed(int x, int y, int button) {
+    searchGameMousePress(x, y, button, currColorObject);
+}
+
+//--------------------------------------------------------------
+void ofApp::keyPressed(int key) {
+    searchGameKeyPress(key);
+}
+
+
+//--------------------------------------------------------------
+void ofApp::keyReleased(int key) {
+
+}
+
+//--------------------------------------------------------------
+void ofApp::mouseMoved(int x, int y) {}
+
+
 
 //--------------------------------------------------------------
 /*

@@ -111,7 +111,6 @@ void ofApp::searchGameSetup() {
     journalImage.load("box.png");
     journalImage.resize(journalSize, journalSize);
     journalImage.setAnchorPoint(journalImage.getWidth() / 2, journalImage.getHeight() / 2);
-
     journalSpawnPos.x = 700;
     journalSpawnPos.y = 400;
 
