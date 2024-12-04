@@ -1,119 +1,44 @@
 #include "ofApp.h"
-#include "password-game-method.cpp"
 
-//--------------------------------------------------------------
 void ofApp::setup() {
-    ofSetWindowShape(1280, 720);
+    // List all serial devices
+    auto devices = serial.getDeviceList();
+    if (devices.empty()) {
+        ofLogError() << "No serial devices found!";
+        return;
+    }
 
-    // Setup Arduino
-    m_arduino.connect(config::ARDUINO_DEVICE_NAME, 57600);
-    m_bSetup = false;
+    // Print available devices
+    for (auto& device : devices) {
+        ofLog() << "Available device: " << device.getDevicePath();
+    }
 
-    // Listen for EInitialized notification, this indicates the Arduino is ready
-    ofAddListener(m_arduino.EInitialized, this, &ofApp::setupArduino);
+    // Try connecting to the first device in the list (or replace with your port)
+    if (serial.setup(devices[0].getDevicePath(), 9600)) {
+        ofLog() << "Successfully connected to " << devices[0].getDevicePath();
+    }
+    else {
+        ofLogError() << "Failed to connect to " << devices[0].getDevicePath();
+    }
 }
 
-//--------------------------------------------------------------
 void ofApp::update() {
-    updateArduino();
-    if (m_code[0] == 1 && m_code[1] == 5 && m_code[2] == 2 && m_code[3] == 7)
-    {
-        passwordComplete == 1;
-        cout << "good job!" << endl;
+    // Check if there is data available to read
+    while (serial.available() > 0) {
+        char byteData = serial.readByte(); // Read a single byte
+
+        // Build the string (look for newline character as the end of data)
+        if (byteData == '\n') {
+            ofLog() << "Button State: " << buttonState; // Log the received state
+            buttonState.clear(); // Clear for the next message
+        }
+        else {
+            buttonState += byteData; // Append data to the string
+        }
     }
 }
 
-//--------------------------------------------------------------
 void ofApp::draw() {
-
-    displayCode();
-    
-    if (introComplete = 0 && searchComplete == 0 && passwordComplete == 0 && radioComplete == 0)
-    {
-        ////////INTRO SCENE////////
-    }
-    else if (introComplete && searchComplete == 0 && passwordComplete == 0 && radioComplete == 0)
-    {
-        ////////SEARCH GAME////////
-    }
-    else if (introComplete && searchComplete && passwordComplete == 0 && radioComplete == 0)
-    {
-        ////////PASSWORD GAME////////
-        displayCode(); // Display the 4-digit code on the screen
-    }
-    else if (introComplete && searchComplete && passwordComplete && radioComplete == 0)
-    {
-        ////////RADIO GAME////////
-    }
-    else if (introComplete && searchComplete && passwordComplete && radioComplete)
-    {
-        ////////ENDING SCENE////////
-    }
-
+    // Display the button state on screen
+    ofDrawBitmapString("Button State: " + buttonState, 20, 20);
 }
-
-//--------------------------------------------------------------
-void ofApp::setupArduino(const int& _version) {
-    m_bSetup = true;
-    
-    // Remove the listener as we don't need it anymore
-    ofRemoveListener(m_arduino.EInitialized, this, &ofApp::setupArduino);
-    
-    // Set digital pins as input (buttons) and enable pull-up resistors
-    m_arduino.sendDigitalPinMode(PIN_BUTTON_1, ARD_INPUT);
-    m_arduino.sendDigitalPinMode(PIN_BUTTON_2, ARD_INPUT);
-    m_arduino.sendDigitalPinMode(PIN_BUTTON_3, ARD_INPUT);
-    m_arduino.sendDigitalPinMode(PIN_BUTTON_4, ARD_INPUT);
-
-    // Listen for changes in digital pins
-    ofAddListener(m_arduino.EDigitalPinChanged, this, &ofApp::digitalPinChanged);
-}
-
-//--------------------------------------------------------------
-void ofApp::updateArduino() {
-    // Update the Arduino, which checks for incoming data
-    m_arduino.update();
-}
-
-//--------------------------------------------------------------
-void ofApp::digitalPinChanged(const int& pinNum) {
-    // Handle digital pin changes (button presses)
-    /*
-    if (pinNum == PIN_BUTTON_1 && m_arduino.getDigital(pinNum) == 0) {
-        m_code[0] = (m_code[0] + 1) % 10;  // Increment the first code digit (0-9)
-    } else if (pinNum == PIN_BUTTON_2 && m_arduino.getDigital(pinNum) == 0) {
-        m_code[1] = (m_code[1] + 1) % 10;  // Increment the second code digit (0-9)
-    } else if (pinNum == PIN_BUTTON_3 && m_arduino.getDigital(pinNum) == 0) {
-        m_code[2] = (m_code[2] + 1) % 10;  // Increment the third code digit (0-9)
-    } else if (pinNum == PIN_BUTTON_4 && m_arduino.getDigital(pinNum) == 0) {
-        m_code[3] = (m_code[3] + 1) % 10;  // Increment the fourth code digit (0-9)
-    }
-    */
-
-    cout << m_arduino.getDigital(pinNum) << endl;
-
-    if (pinNum == PIN_BUTTON_1 && m_arduino.getDigital(pinNum) == 0) {
-        ofDrawRectangle({ 0,0 }, 100, 100);
-        m_code[0] = (m_code[0] + 1)%10;  // Increment the first code digit (0-9)
-    }
-    else if (pinNum == PIN_BUTTON_2 && m_arduino.getDigital(pinNum) == 0) {
-        m_code[1] = (m_code[1] + 1)%10;  // Increment the second code digit (0-9)
-    }
-    else if (pinNum == PIN_BUTTON_3 && m_arduino.getDigital(pinNum) == 0) {
-        m_code[2] = (m_code[2] + 1)%10;  // Increment the third code digit (0-9)
-    }
-    else if (pinNum == PIN_BUTTON_4 && m_arduino.getDigital(pinNum) == 0) {
-        m_code[3] = (m_code[3] + 1)%10;  // Increment the fourth code digit (0-9)
-    }
-}
-
-//--------------------------------------------------------------
-/*
-void ofApp::displayCode() {
-    // Display the current 4-digit code
-    string codeStr = "Code: ";
-    for (int i = 0; i < 4; i++) {
-        codeStr += ofToString(m_code[i]);
-    }
-    ofDrawBitmapString(codeStr, 530, 105);  // Display the code on the screen
-}*/
