@@ -35,4 +35,10 @@ public:
     bool searchComplete = 0;
     bool passwordComplete = 0;
     bool radioComplete = 0;
+
+    // password game methods
+
+    void passwordGameUpdate();
+    void passwordGameSetup();
+
 };
