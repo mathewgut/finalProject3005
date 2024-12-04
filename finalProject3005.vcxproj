@@ -132,10 +132,8 @@
     <ClCompile Include="..\..\..\addons\ofxOpenCv\src\ofxCvHaarFinder.cpp" />
     <ClCompile Include="..\..\..\addons\ofxOpenCv\src\ofxCvImage.cpp" />
     <ClCompile Include="..\..\..\addons\ofxOpenCv\src\ofxCvShortImage.cpp" />
-    <ClCompile Include="src\search-game-methods.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\CVC.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="..\..\..\addons\ofxImGui\src\BaseEngine.h" />
     <ClInclude Include="..\..\..\addons\ofxImGui\src\BaseTheme.h" />
