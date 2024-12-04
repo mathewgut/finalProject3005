@@ -45,14 +45,13 @@ void ofApp::draw() {
 
 
 
-
 //--------------------------------------------------------------
 void ofApp::setupArduino(const int& _version) {
     m_bSetup = true;
-    
+
     // Remove the listener as we don't need it anymore
     ofRemoveListener(m_arduino.EInitialized, this, &ofApp::setupArduino);
-    
+
     // Set digital pins as input (buttons) and enable pull-up resistors
     m_arduino.sendDigitalPinMode(PIN_BUTTON_1, ARD_INPUT);
     m_arduino.sendDigitalPinMode(PIN_BUTTON_2, ARD_INPUT);
@@ -61,7 +60,7 @@ void ofApp::setupArduino(const int& _version) {
 
     // Listen for changes in digital pins
     ofAddListener(m_arduino.EDigitalPinChanged, this, &ofApp::digitalPinChanged);
-
+}
 
 //--------------------------------------------------------------
 void ofApp::updateArduino() {
@@ -84,7 +83,6 @@ void ofApp::digitalPinChanged(const int& pinNum) {
     }
     */
 
-    cout << m_arduino.getDigital(pinNum) << endl;
 
     if (pinNum == PIN_BUTTON_1 && m_arduino.getDigital(pinNum) == 0) {
         ofDrawRectangle({ 0,0 }, 100, 100);
@@ -99,6 +97,7 @@ void ofApp::digitalPinChanged(const int& pinNum) {
     else if (pinNum == PIN_BUTTON_4 && m_arduino.getDigital(pinNum) == 0) {
         m_code[3] = (m_code[3] + 1)%10;  // Increment the fourth code digit (0-9)
     }
+
 }
 
 // stores which object color is being applied to
