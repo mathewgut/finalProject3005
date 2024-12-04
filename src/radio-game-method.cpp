@@ -1,3 +1,6 @@
+#include "ofApp.h"
+
+
 void ofApp::readPotentiometer() {
 	//outputs potentiometer value to console
 
@@ -50,7 +53,7 @@ void ofApp::radioFader(float fadeValue, float volume1, float volume2, float volu
 		volume1 = 1.0f - (fadeValue - 0.6666f) * 5;
 		volume4 = (fadeValue - 0.6666f) * 5;
 	}
-	else if {
+	else {
 		volume4 = 1.0f - (fadeValue - 0.8333f) * 5;
 		volume1 = (fadeValue - 0.8333f) * 5;
 	}

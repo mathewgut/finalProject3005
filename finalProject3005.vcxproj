@@ -131,6 +131,7 @@
     <ClCompile Include="..\..\..\addons\ofxOpenCv\src\ofxCvHaarFinder.cpp" />
     <ClCompile Include="..\..\..\addons\ofxOpenCv\src\ofxCvImage.cpp" />
     <ClCompile Include="..\..\..\addons\ofxOpenCv\src\ofxCvShortImage.cpp" />
+    <ClCompile Include="src\radio-game-method.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ofApp.h" />

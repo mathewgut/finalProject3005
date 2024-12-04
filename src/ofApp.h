@@ -26,4 +26,7 @@ class ofApp : public ofBaseApp{
 		float				volume3;
 		float				volume4;
 		
+
+		void readPotentiometer();
+		void radioFader(float fadeValue, float volume1, float volume2, float volume3, float volume4);
 };
