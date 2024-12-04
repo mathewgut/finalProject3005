@@ -43,7 +43,7 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
 	readPotentiometer();
-	radioFader(fadeValue,  volume1, volume2, volume3, volume4);
+	radioFader(fadeValue,  volume1, volume2, volume3, volume4, PIN_BUTTON_5, m_arduino);
 }
 
 //--------------------------------------------------------------
