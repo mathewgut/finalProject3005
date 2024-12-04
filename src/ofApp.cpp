@@ -4,19 +4,19 @@
 //--------------------------------------------------------------
 void ofApp::setup() {
     ofSetWindowShape(1280, 720);
-
+    searchGameSetup();
     passwordGameSetup();
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
     passwordGameUpdate();
+    searchGameUpdate();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
 
-    displayCode();
     
     if (introComplete = 0 && searchComplete == 0 && passwordComplete == 0 && radioComplete == 0)
     {
@@ -25,6 +25,7 @@ void ofApp::draw() {
     else if (introComplete && searchComplete == 0 && passwordComplete == 0 && radioComplete == 0)
     {
         ////////SEARCH GAME////////
+        searchGameDraw();
     }
     else if (introComplete && searchComplete && passwordComplete == 0 && radioComplete == 0)
     {
@@ -42,6 +43,9 @@ void ofApp::draw() {
 
 }
 
+
+
+
 //--------------------------------------------------------------
 void ofApp::setupArduino(const int& _version) {
     m_bSetup = true;
@@ -57,7 +61,7 @@ void ofApp::setupArduino(const int& _version) {
 
     // Listen for changes in digital pins
     ofAddListener(m_arduino.EDigitalPinChanged, this, &ofApp::digitalPinChanged);
-}
+
 
 //--------------------------------------------------------------
 void ofApp::updateArduino() {
@@ -96,6 +100,24 @@ void ofApp::digitalPinChanged(const int& pinNum) {
         m_code[3] = (m_code[3] + 1)%10;  // Increment the fourth code digit (0-9)
     }
 }
+
+// stores which object color is being applied to
+vector<int> currColorObject;
+//--------------------------------------------------------------
+void ofApp::mousePressed(int x, int y, int button) {}
+  
+  //--------------------------------------------------------------
+void ofApp::keyPressed(int key){
+}
+
+
+//--------------------------------------------------------------
+void ofApp::keyReleased(int key){
+
+}
+
+//--------------------------------------------------------------
+void ofApp::mouseMoved(int x, int y ){}
 
 //--------------------------------------------------------------
 /*
