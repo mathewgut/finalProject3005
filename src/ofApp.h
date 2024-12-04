@@ -4,7 +4,6 @@
 #include "ofxOpenCv.h"
 #include "ofxImGui.h"
 #include "ImHelpers.h"		//this gives us some extra ofxImGui features (needed for drop-down menus)
-
 #include "CVC.h"
 
 class ofApp : public ofBaseApp{
@@ -25,6 +24,7 @@ class ofApp : public ofBaseApp{
 
 		/* HANDS */
 		float handSize = 100.0f;
+		float handBoundaryPadding = 15;
 
 		ofxCvContourFinder m_hand1;
 
@@ -39,6 +39,22 @@ class ofApp : public ofBaseApp{
 
 		/* background */
 		ofImage backgroundImage;
+
+		/* no controller black image */
+		ofImage noControllerImage;
+
+		/* to be found object */
+		ofImage journalImage;
+		float journalSize = 100;
+		float journalBoundaryPadding = 15;
+
+		ofVec2f journalTL;
+		ofVec2f journalBR;
+
+		ofVec2f journalSpawnPos;
+
+		/* win condition */
+		bool journalFound = false;
 
 
 		//CV images
@@ -85,5 +101,10 @@ class ofApp : public ofBaseApp{
 		bool collisionCheck(ofVec2f obj1TL, ofVec2f obj1BR, ofVec2f obj2TL, ofVec2f obj2BR);
 		void setHandBoundries();
 		void setSpawnedObjBoundries();
+		void searchGameSetup();
+		void searchGameUpdate();
+		void searchGameDraw();
+		void searchGameMousePress(int x, int y, int button, vector<int> currColorObject);
+		void searchGameKeyPress(int key);
 		
 };
