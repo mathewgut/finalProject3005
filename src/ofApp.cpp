@@ -4,7 +4,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup() {
-    cout << "hi i'm working setup! \n";
+
     ofSetWindowShape(1280, 720);
     //searchGameSetup();
     passwordGameSetup();
@@ -14,6 +14,7 @@ void ofApp::setup() {
 void ofApp::update() {
     passwordGameUpdate();
     //searchGameUpdate();
+    cout << m_arduino.getDigital(2) << endl;
 }
 
 //--------------------------------------------------------------
@@ -59,8 +60,7 @@ void ofApp::setupArduino(const int& _version) {
     m_arduino.sendDigitalPinMode(PIN_BUTTON_3, ARD_INPUT);
     m_arduino.sendDigitalPinMode(PIN_BUTTON_4, ARD_INPUT);
 
-    //Trace
-    cout << "Arduino is listening!" << endl;
+   
 
     // Listen for changes in digital pins
     ofAddListener(m_arduino.EDigitalPinChanged, this, &ofApp::digitalPinChanged);
