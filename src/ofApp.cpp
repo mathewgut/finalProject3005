@@ -4,14 +4,14 @@
 
 //--------------------------------------------------------------
 void ofApp::setup() {
+    cout << "hi i'm working setup! \n";
     ofSetWindowShape(1280, 720);
-    searchGameSetup();
+    //searchGameSetup();
     passwordGameSetup();
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
-    updateArduino();
     passwordGameUpdate();
     //searchGameUpdate();
 }
@@ -51,13 +51,16 @@ void ofApp::setupArduino(const int& _version) {
     m_bSetup = true;
     
     // Remove the listener as we don't need it anymore
-    ofRemoveListener(m_arduino.EInitialized, this, &ofApp::setupArduino);
+    //ofRemoveListener(m_arduino.EInitialized, this, &ofApp::setupArduino);
     
     // Set digital pins as input (buttons) and enable pull-up resistors
     m_arduino.sendDigitalPinMode(PIN_BUTTON_1, ARD_INPUT);
     m_arduino.sendDigitalPinMode(PIN_BUTTON_2, ARD_INPUT);
     m_arduino.sendDigitalPinMode(PIN_BUTTON_3, ARD_INPUT);
     m_arduino.sendDigitalPinMode(PIN_BUTTON_4, ARD_INPUT);
+
+    //Trace
+    cout << "Arduino is listening!" << endl;
 
     // Listen for changes in digital pins
     ofAddListener(m_arduino.EDigitalPinChanged, this, &ofApp::digitalPinChanged);
@@ -66,6 +69,7 @@ void ofApp::setupArduino(const int& _version) {
 //--------------------------------------------------------------
 void ofApp::updateArduino() {
     // Update the Arduino, which checks for incoming data
+    cout << "hi i'm working arduino! \n";
     m_arduino.update();
 }
 

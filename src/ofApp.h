@@ -10,7 +10,7 @@
 
 
 namespace config {
-    static const std::string ARDUINO_DEVICE_NAME = "COM6";  // Update with your device name
+    static const std::string ARDUINO_DEVICE_NAME = "COM9";  // Update with your device name
 };
 
 class ofApp : public ofBaseApp {

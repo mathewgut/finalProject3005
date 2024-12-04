@@ -100,7 +100,7 @@ void ofApp::searchGameSetup() {
     darkAreaImage.setAnchorPoint(darkAreaImage.getWidth() / 2, darkAreaImage.getHeight() / 2);
 
     /* BACKGROUND IMAGE */
-    backgroundImage.load("test-background.jpg");
+    backgroundImage.load(".jpg");
     backgroundImage.setAnchorPoint(backgroundImage.getWidth() / 2, backgroundImage.getHeight() / 2);
 
     /* NO CONTROLLER IMAGE */
@@ -108,7 +108,7 @@ void ofApp::searchGameSetup() {
     noControllerImage.setAnchorPoint(noControllerImage.getWidth() / 2, noControllerImage.getHeight() / 2);
 
     /* JOURNAL IMAGE */
-    journalImage.load("box.png");
+    journalImage.load("journal.png");
     journalImage.resize(journalSize, journalSize);
     journalImage.setAnchorPoint(journalImage.getWidth() / 2, journalImage.getHeight() / 2);
     journalSpawnPos.x = 700;
