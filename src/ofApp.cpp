@@ -234,30 +234,30 @@ ofSetColor(0); // Set color to black for other text as well
     else if (introComplete && searchComplete == 0 && passwordComplete == 0 && radioComplete == 0)
     {
         ////////SEARCH GAME////////
-        ofSetColor(ofColor::red);
-        ofDrawBitmapString(m_entries[1], 700, 350);
+        ofSetColor(ofColor::black);
+        ofDrawBitmapString(m_entries[1], 785, 80);
         ofSetColor(255);
     }
     else if (introComplete && searchComplete && passwordComplete == 0 && radioComplete == 0)
     {
         ////////PASSWORD GAME////////
-        ofSetColor(ofColor::red);
-        ofDrawBitmapString(m_entries[2], 700, 350);
+        ofSetColor(ofColor::black);
+        ofDrawBitmapString(m_entries[2], 785, 80);
         ofSetColor(255);
 
     }
     else if (introComplete && searchComplete && passwordComplete && radioComplete == 0)
     {
         ////////RADIO GAME////////
-        ofSetColor(ofColor::red);
-        ofDrawBitmapString(m_entries[3], 700, 350);
+        ofSetColor(ofColor::black);
+        ofDrawBitmapString(m_entries[3], 785, 80);
         ofSetColor(255);
     }
     else if (introComplete && searchComplete && passwordComplete && radioComplete)
     {
         ////////ENDING SCENE////////
-        ofSetColor(ofColor::red);
-        ofDrawBitmapString(m_entries[4], 700, 350);
+        ofSetColor(ofColor::black);
+        ofDrawBitmapString(m_entries[4], 785, 80);
         ofSetColor(255);
     }
     
