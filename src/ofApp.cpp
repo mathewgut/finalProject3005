@@ -69,6 +69,7 @@ void ofApp::draw() {
     {
         ////////RADIO GAME////////
         background[3].draw(0, 0, ofGetWidth(), ofGetHeight());
+        displayEntries();
     }
     else if (introComplete && searchComplete && passwordComplete && radioComplete)
     {
@@ -170,6 +171,7 @@ ofSetColor(0); // Set color to black for other text as well
     {
         ////////RADIO GAME////////
         ofDrawBitmapString(m_entries[3], 2750, 350);
+        ofSetColor(255);
     }
     else if (introComplete && searchComplete && passwordComplete && radioComplete)
     {

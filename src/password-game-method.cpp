@@ -9,5 +9,5 @@ void ofApp::displayCode() {
     }
 
     ofSetColor(ofColor::red);  // Set the text color to black
-    ofDrawBitmapString(codeStr, 1250, 1750);  // Display the code on the screen
+    ofDrawBitmapString(codeStr, 1250, 1800);  // Display the code on the screen
 }
