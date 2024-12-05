@@ -111,8 +111,8 @@ void ofApp::searchGameSetup() {
     journalImage.load("journal.png");
     journalImage.resize(journalSize, journalSize);
     journalImage.setAnchorPoint(journalImage.getWidth() / 2, journalImage.getHeight() / 2);
-    journalSpawnPos.x = 700;
-    journalSpawnPos.y = 400;
+    journalSpawnPos.x = 1050;
+    journalSpawnPos.y = 20;
 
     //set up app
     ofSetWindowShape(CVC::APP_WINDOW_WIDTH, CVC::APP_WINDOW_HEIGHT);
@@ -197,10 +197,10 @@ void ofApp::searchGameUpdate() {
     // update the hand collision boundries every frame
     setHandBoundries();
     if (collisionCheck(hand1TL, hand1BR, journalTL, journalBR)) {
-        cout << " COLLIDING \n";
+        searchComplete = 1;
     }
     else {
-        cout << "NOT COLLIDING \n";
+        searchComplete = 0;
     }
 }
 

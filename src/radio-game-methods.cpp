@@ -24,7 +24,7 @@ void ofApp::radioGameSetup() {
 	sound_station2.play();
 }
 
-bool ofApp::radioFader(int potValue, float fadeValue, float volume1, float volume2, float volume3, float volume4, bool button5Pressed) {
+void ofApp::radioFader(int potValue, float fadeValue, float volume1, float volume2, float volume3, float volume4, bool button5Pressed) {
 	//increases and lowers volume levels as potentiometer's range is swept through
 
 	fadeValue = ofMap(potValue, 0, 1024, 0, 1, true);	  // for potentiometer
@@ -39,7 +39,7 @@ bool ofApp::radioFader(int potValue, float fadeValue, float volume1, float volum
 		volume1 = ofClamp(1.0f - fadeValue * 5, 0, 1);
 		volume2 = ofClamp(fadeValue * 5, 0, 1);
 		if (button5Pressed == true) {
-			return 1;
+			radioComplete = 1;
 		}
 	}
 	else if (fadeValue <= 0.4f) {
@@ -65,5 +65,5 @@ bool ofApp::radioFader(int potValue, float fadeValue, float volume1, float volum
 	cout << "vol2: " << volume2 << "\n";
 	cout << "vol3: " << volume3 << "\n";
 
-	return 0;
+	radioComplete = 0;
 }

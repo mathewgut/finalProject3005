@@ -25,7 +25,6 @@ public:
     void setup();
     void update();
     void draw();
-    void mousePressed(int x, int y, int button);
 
     // Arduino stuff
     ofArduino m_arduino;
@@ -79,7 +78,7 @@ public:
 	void displayRadio(int potValue); // helper function to display radio frequency as string
 
 	void radioGameSetup();
-	bool radioFader(int potValue,float fadeValue, float volume1, float volume2, float volume3, float volume4,
+	void radioFader(int potValue,float fadeValue, float volume1, float volume2, float volume3, float volume4,
 					bool button5Pressed);
 
 	int potValue = 0;

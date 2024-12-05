@@ -19,17 +19,40 @@ void ofApp::setup() {
     background[4].load("ending.png");
 
     ofSetWindowShape(1280, 720);
-    //searchGameSetup();
+    searchGameSetup();
     passwordGameSetup();
-    radioGameSetup();
+    
 
+    if (introComplete && searchComplete && passwordComplete && radioComplete == 0) {
+        radioGameSetup();
+    }
+    else {
+        sound_static.stop();
+        sound_brightside.stop();
+        sound_station1.stop();
+        sound_station2.stop();
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
-    passwordGameUpdate();
-    radioFader(potValue, fadeValue, volume1, volume1, volume1, volume4, PIN_BUTTON_5);
-    //searchGameUpdate();
+    //passwordGameUpdate();
+
+    
+    if (introComplete&& searchComplete == 0 && passwordComplete == 0 && radioComplete == 0) {
+        searchGameUpdate();
+    }
+    if (introComplete && searchComplete && passwordComplete == 0 && radioComplete == 0) {
+        passwordGameUpdate();
+    }
+
+    if (introComplete && searchComplete && passwordComplete && radioComplete == 0) {
+        displayRadio(potValue);
+        radioFader(potValue, fadeValue, volume1, volume1, volume1, volume4, PIN_BUTTON_5);
+    }
+
+    
+    
 }
 
 //--------------------------------------------------------------
@@ -46,8 +69,6 @@ void ofApp::draw() {
 
 
     
-    displayCode();
-    displayRadio(potValue);
 
     
     if (introComplete == 0 && searchComplete == 0 && passwordComplete == 0 && radioComplete == 0)
@@ -62,6 +83,7 @@ void ofApp::draw() {
     {
         ////////SEARCH GAME////////
         background[1].draw(0, 0, ofGetWidth(), ofGetHeight());
+        searchGameDraw();
         displayEntries();
     }
     else if (introComplete && searchComplete && passwordComplete == 0 && radioComplete == 0)
@@ -168,6 +190,7 @@ vector<int> currColorObject;
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button) {
+    introComplete = 1;
     searchGameMousePress(x, y, button, currColorObject);
 }
 
@@ -211,32 +234,31 @@ ofSetColor(0); // Set color to black for other text as well
     else if (introComplete && searchComplete == 0 && passwordComplete == 0 && radioComplete == 0)
     {
         ////////SEARCH GAME////////
-        ofDrawBitmapString(m_entries[1], 2750, 350);
+        ofSetColor(ofColor::red);
+        ofDrawBitmapString(m_entries[1], 700, 350);
         ofSetColor(255);
     }
     else if (introComplete && searchComplete && passwordComplete == 0 && radioComplete == 0)
     {
         ////////PASSWORD GAME////////
-        ofDrawBitmapString(m_entries[2], 2750, 350);
+        ofSetColor(ofColor::red);
+        ofDrawBitmapString(m_entries[2], 700, 350);
         ofSetColor(255);
 
     }
     else if (introComplete && searchComplete && passwordComplete && radioComplete == 0)
     {
         ////////RADIO GAME////////
-        ofDrawBitmapString(m_entries[3], 2750, 350);
+        ofSetColor(ofColor::red);
+        ofDrawBitmapString(m_entries[3], 700, 350);
         ofSetColor(255);
     }
     else if (introComplete && searchComplete && passwordComplete && radioComplete)
     {
         ////////ENDING SCENE////////
-        ofDrawBitmapString(m_entries[4], 2750, 350);
+        ofSetColor(ofColor::red);
+        ofDrawBitmapString(m_entries[4], 700, 350);
         ofSetColor(255);
     }
     
-}
-
-void ofApp::mousePressed(int x, int y, int button) {
-    // Change the introComplete state to true when mouse is clicked
-    introComplete = 1;
 }
