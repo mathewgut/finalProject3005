@@ -7,5 +7,7 @@ void ofApp::displayCode() {
     for (int i = 0; i < 4; i++) {
         codeStr += ofToString(m_code[i]);
     }
-    ofDrawBitmapString(codeStr, 530, 105);  // Display the code on the screen
+
+    ofSetColor(ofColor::red);  // Set the text color to black
+    ofDrawBitmapString(codeStr, 1250, 1750);  // Display the code on the screen
 }
