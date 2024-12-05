@@ -9,7 +9,7 @@ void ofApp::displayCode() {
     }
 
     ofSetColor(ofColor::white);  // Set the text color to black
-    ofDrawBitmapString(codeStr, 250, 650);  // Display the code on the screen
+    ofDrawBitmapString(codeStr, 255, 625);  // Display the code on the screen
 }
 
 void ofApp::passwordGameUpdate() {

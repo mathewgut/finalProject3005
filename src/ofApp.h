@@ -40,8 +40,8 @@ public:
     void displayCode();
 
     // Game state
-    bool introComplete = 1;
-    bool searchComplete = 1;
+    bool introComplete = 0;
+    bool searchComplete = 0;
     bool passwordComplete = 0;
     bool radioComplete = 0;
 
