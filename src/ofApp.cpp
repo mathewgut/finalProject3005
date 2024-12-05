@@ -1,19 +1,23 @@
 #include "ofApp.h"
 #include "password-game-method.cpp"
 #include "search-game-methods.cpp"
+#include "radio-game-methods.cpp"
 
 //--------------------------------------------------------------
 void ofApp::setup() {
     ofSetWindowShape(1280, 720);
     searchGameSetup();
     passwordGameSetup();
+    radioGameSetup();
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
     updateArduino();
     passwordGameUpdate();
+    radioFader(fadeValue, volume1, volume1, volume1, volume4, PIN_BUTTON_5, m_arduino);
     //searchGameUpdate();
+    
 }
 
 //--------------------------------------------------------------
@@ -21,6 +25,7 @@ void ofApp::draw() {
 
     
     displayCode();
+    displayRadio(potValue);
     
     if (introComplete = 0 && searchComplete == 0 && passwordComplete == 0 && radioComplete == 0)
     {
@@ -61,6 +66,12 @@ void ofApp::setupArduino(const int& _version) {
 
     // Listen for changes in digital pins
     ofAddListener(m_arduino.EDigitalPinChanged, this, &ofApp::digitalPinChanged);
+    ofAddListener(m_arduino.EAnalogPinChanged, this, &ofApp::analogPinChanged);
+
+
+    // Set analog pins as input (potentiometer)
+    m_arduino.sendAnalogPinReporting(PIN_POT, ARD_ANALOG);
+
 }
 
 //--------------------------------------------------------------
@@ -99,10 +110,23 @@ void ofApp::digitalPinChanged(const int& pinNum) {
     else if (pinNum == PIN_BUTTON_4 && m_arduino.getDigital(pinNum) == 0) {
         m_code[3] = (m_code[3] + 1)%10;  // Increment the fourth code digit (0-9)
     }
+    if (pinNum == PIN_BUTTON_5 && m_arduino.getDigital(pinNum) == 0) {
+        button5Pressed = true;
+    }
+}
+
+//--------------------------------------------------------------
+void ofApp::analogPinChanged(const int& pinNum) {
+    //get and output the the potentiometer value
+    potValue = m_arduino.getAnalog(pinNum);
+    cout << "potentiometer: " << potValue << '\n';
 }
 
 // stores which object color is being applied to
 vector<int> currColorObject;
+
+
+
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button) {
     searchGameMousePress(x, y, button, currColorObject);

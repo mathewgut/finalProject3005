@@ -10,7 +10,7 @@
 
 
 namespace config {
-    static const std::string ARDUINO_DEVICE_NAME = "COM6";  // Update with your device name
+    static const std::string ARDUINO_DEVICE_NAME = "COM4";  // Update with your device name
 };
 
 class ofApp : public ofBaseApp {
@@ -19,6 +19,8 @@ public:
     static const int PIN_BUTTON_2 = 3;  // Button 2 on digital pin 3
     static const int PIN_BUTTON_3 = 4;  // Button 3 on digital pin 4
     static const int PIN_BUTTON_4 = 5;  // Button 4 on digital pin 5
+	static const int PIN_BUTTON_5 = 6;	// Button 5 on digital pin 6
+	static const int PIN_POT = 3;		// Potentiometer on analog pin 3
 
     void setup();
     void update();
@@ -32,6 +34,7 @@ public:
     void setupArduino(const int& _version);
     void updateArduino();
     void digitalPinChanged(const int& pinNum);
+	void analogPinChanged(const int& pinNum);
 
     // Helper function to display the code
     void displayCode();
@@ -54,6 +57,29 @@ public:
 	bool m_camPaused;					//pausing our camera feed
 
 	bool debug = true;
+
+	// radio game methods
+	void displayRadio(int potValue); // helper function to display radio frequency as string
+
+	void radioGameSetup();
+	bool radioFader(float fadeValue, float volume1, float volume2, float volume3, float volume4,
+					bool button5Pressed, ofArduino m_arduino);
+
+	int potValue = 0;
+	bool button5Pressed = false;
+
+	ofSoundPlayer		sound_static;
+	ofSoundPlayer		sound_brightside;
+	ofSoundPlayer		sound_station1;
+	ofSoundPlayer		sound_station2;
+	const int			numSounds = 4;
+
+	float				fadeValue = 0.0f;
+	float				volume1 = 0.0f;
+	float				volume2 = 0.0f;
+	float				volume3 = 0.0f;
+	float				volume4 = 0.0f;
+
 
 	/* BOUNDRY PADDING */
 	float boundryPadding = 50.0f;
