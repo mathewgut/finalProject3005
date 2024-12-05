@@ -10,7 +10,7 @@
 
 
 namespace config {
-    static const std::string ARDUINO_DEVICE_NAME = "COM4";  // Update with your device name
+    static const std::string ARDUINO_DEVICE_NAME = "COM9";  // Update with your device name
 };
 
 class ofApp : public ofBaseApp {
@@ -62,8 +62,8 @@ public:
 	void displayRadio(int potValue); // helper function to display radio frequency as string
 
 	void radioGameSetup();
-	bool radioFader(float fadeValue, float volume1, float volume2, float volume3, float volume4,
-					bool button5Pressed, ofArduino m_arduino);
+	bool radioFader(int potValue,float fadeValue, float volume1, float volume2, float volume3, float volume4,
+					bool button5Pressed);
 
 	int potValue = 0;
 	bool button5Pressed = false;

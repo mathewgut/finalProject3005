@@ -15,7 +15,7 @@ void ofApp::setup() {
 void ofApp::update() {
     updateArduino();
     passwordGameUpdate();
-    radioFader(fadeValue, volume1, volume1, volume1, volume4, PIN_BUTTON_5, m_arduino);
+    radioFader(potValue, fadeValue, volume1, volume1, volume1, volume4, PIN_BUTTON_5);
     //searchGameUpdate();
     
 }
