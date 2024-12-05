@@ -1,16 +1,15 @@
 #include "ofApp.h"
 #include "password-game-method.cpp"
+#include "search-game-methods.cpp"
+#include "radio-game-methods.cpp"
 
 //--------------------------------------------------------------
 void ofApp::setup() {
-    ofSetWindowShape(3840, 2160);
+
 
     // Setup Arduino
-    m_arduino.connect(config::ARDUINO_DEVICE_NAME, 57600);
-    m_bSetup = false;
-
+ 
     // Listen for EInitialized notification, this indicates the Arduino is ready
-    ofAddListener(m_arduino.EInitialized, this, &ofApp::setupArduino);
 
     // Load background images
     background[0].load("intro.png");
@@ -19,20 +18,23 @@ void ofApp::setup() {
     background[3].load("radio.png");
     background[4].load("ending.png");
 
+    ofSetWindowShape(1280, 720);
+    searchGameSetup();
+    passwordGameSetup();
+    radioGameSetup();
+
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
-    updateArduino();
-    if (m_code[0] == 1 && m_code[1] == 5 && m_code[2] == 2 && m_code[3] == 7)
-    {
-        passwordComplete = 1;
-        cout << "good job!" << endl;
-    }
+    passwordGameUpdate();
+    radioFader(potValue, fadeValue, volume1, volume1, volume1, volume4, PIN_BUTTON_5);
+    //searchGameUpdate();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
+
 
     // USE THE ORDER BELOW //
     /*background[2].draw(0, 0, ofGetWidth(), ofGetHeight());
@@ -42,6 +44,10 @@ void ofApp::draw() {
 
     //displayCode();
 
+
+    
+    displayCode();
+    displayRadio(potValue);
 
     
     if (introComplete == 0 && searchComplete == 0 && passwordComplete == 0 && radioComplete == 0)
@@ -96,6 +102,12 @@ void ofApp::setupArduino(const int& _version) {
 
     // Listen for changes in digital pins
     ofAddListener(m_arduino.EDigitalPinChanged, this, &ofApp::digitalPinChanged);
+    ofAddListener(m_arduino.EAnalogPinChanged, this, &ofApp::analogPinChanged);
+
+
+    // Set analog pins as input (potentiometer)
+    m_arduino.sendAnalogPinReporting(PIN_POT, ARD_ANALOG);
+
 }
 
 //--------------------------------------------------------------
@@ -134,7 +146,43 @@ void ofApp::digitalPinChanged(const int& pinNum) {
     else if (pinNum == PIN_BUTTON_4 && m_arduino.getDigital(pinNum) == 0) {
         m_code[3] = (m_code[3] + 1)%10;  // Increment the fourth code digit (0-9)
     }
+    if (pinNum == PIN_BUTTON_5 && m_arduino.getDigital(pinNum) == 0) {
+        button5Pressed = true;
+    }
 }
+
+//--------------------------------------------------------------
+void ofApp::analogPinChanged(const int& pinNum) {
+    //get and output the the potentiometer value
+    potValue = m_arduino.getAnalog(pinNum);
+    cout << "potentiometer: " << potValue << '\n';
+}
+
+// stores which object color is being applied to
+vector<int> currColorObject;
+
+
+
+//--------------------------------------------------------------
+void ofApp::mousePressed(int x, int y, int button) {
+    searchGameMousePress(x, y, button, currColorObject);
+}
+
+//--------------------------------------------------------------
+void ofApp::keyPressed(int key) {
+    searchGameKeyPress(key);
+}
+
+
+//--------------------------------------------------------------
+void ofApp::keyReleased(int key) {
+
+}
+
+//--------------------------------------------------------------
+void ofApp::mouseMoved(int x, int y) {}
+
+
 
 //--------------------------------------------------------------
 /*
