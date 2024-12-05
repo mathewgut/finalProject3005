@@ -242,7 +242,7 @@ ofSetColor(0); // Set color to black for other text as well
     {
         ////////PASSWORD GAME////////
         ofSetColor(ofColor::red);
-        ofDrawBitmapString(m_entries[2], 700, 350);
+        ofDrawBitmapString(m_entries[2], 775, 75);
         ofSetColor(255);
 
     }
