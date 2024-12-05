@@ -6,10 +6,23 @@
 //--------------------------------------------------------------
 void ofApp::setup() {
 
+
+    // Setup Arduino
+ 
+    // Listen for EInitialized notification, this indicates the Arduino is ready
+
+    // Load background images
+    background[0].load("intro.png");
+    background[1].load("search.png");
+    background[2].load("password.png");
+    background[3].load("radio.png");
+    background[4].load("ending.png");
+
     ofSetWindowShape(1280, 720);
     //searchGameSetup();
     passwordGameSetup();
     radioGameSetup();
+
 }
 
 //--------------------------------------------------------------
@@ -17,36 +30,59 @@ void ofApp::update() {
     passwordGameUpdate();
     radioFader(potValue, fadeValue, volume1, volume1, volume1, volume4, PIN_BUTTON_5);
     //searchGameUpdate();
-    
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
 
+
+    // USE THE ORDER BELOW //
+    /*background[2].draw(0, 0, ofGetWidth(), ofGetHeight());
+    ofSetColor(255);
+    displayCode();
+    ofSetColor(255);*/
+
+    //displayCode();
+
+
     
     displayCode();
     displayRadio(potValue);
+
     
-    if (introComplete = 0 && searchComplete == 0 && passwordComplete == 0 && radioComplete == 0)
+    if (introComplete == 0 && searchComplete == 0 && passwordComplete == 0 && radioComplete == 0)
     {
+        ofSetColor(255);
         ////////INTRO SCENE////////
+        background[0].draw(0, 0, ofGetWidth(), ofGetHeight());
+        displayEntries();
+        
     }
     else if (introComplete && searchComplete == 0 && passwordComplete == 0 && radioComplete == 0)
     {
         ////////SEARCH GAME////////
+        background[1].draw(0, 0, ofGetWidth(), ofGetHeight());
+        displayEntries();
     }
     else if (introComplete && searchComplete && passwordComplete == 0 && radioComplete == 0)
     {
         ////////PASSWORD GAME////////
-        displayCode(); // Display the 4-digit code on the screen
+        background[2].draw(0, 0, ofGetWidth(), ofGetHeight());
+        displayCode();
+        displayEntries();
+
     }
     else if (introComplete && searchComplete && passwordComplete && radioComplete == 0)
     {
         ////////RADIO GAME////////
+        background[3].draw(0, 0, ofGetWidth(), ofGetHeight());
+        displayEntries();
     }
     else if (introComplete && searchComplete && passwordComplete && radioComplete)
     {
         ////////ENDING SCENE////////
+        background[4].draw(0, 0, ofGetWidth(), ofGetHeight());
+        displayEntries();
     }
 
 }
@@ -161,3 +197,46 @@ void ofApp::displayCode() {
     }
     ofDrawBitmapString(codeStr, 530, 105);  // Display the code on the screen
 }*/
+
+void ofApp:: displayEntries() {
+ofSetColor(0); // Set color to black for other text as well
+    if (introComplete == 0 && searchComplete == 0 && passwordComplete == 0 && radioComplete == 0)
+    {
+        ////////INTRO SCENE////////
+        ofSetColor(ofColor::red);
+        ofDrawBitmapString(m_entries[0], ofGetWidth()/2, ofGetHeight()/2); // Display the entry text
+        cout << "this is getting called" << endl;
+        ofSetColor(255);
+    }
+    else if (introComplete && searchComplete == 0 && passwordComplete == 0 && radioComplete == 0)
+    {
+        ////////SEARCH GAME////////
+        ofDrawBitmapString(m_entries[1], 2750, 350);
+        ofSetColor(255);
+    }
+    else if (introComplete && searchComplete && passwordComplete == 0 && radioComplete == 0)
+    {
+        ////////PASSWORD GAME////////
+        ofDrawBitmapString(m_entries[2], 2750, 350);
+        ofSetColor(255);
+
+    }
+    else if (introComplete && searchComplete && passwordComplete && radioComplete == 0)
+    {
+        ////////RADIO GAME////////
+        ofDrawBitmapString(m_entries[3], 2750, 350);
+        ofSetColor(255);
+    }
+    else if (introComplete && searchComplete && passwordComplete && radioComplete)
+    {
+        ////////ENDING SCENE////////
+        ofDrawBitmapString(m_entries[4], 2750, 350);
+        ofSetColor(255);
+    }
+    
+}
+
+void ofApp::mousePressed(int x, int y, int button) {
+    // Change the introComplete state to true when mouse is clicked
+    introComplete = 1;
+}
