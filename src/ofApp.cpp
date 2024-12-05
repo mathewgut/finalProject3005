@@ -56,6 +56,7 @@ void ofApp::draw() {
     {
         ////////SEARCH GAME////////
         background[1].draw(0, 0, ofGetWidth(), ofGetHeight());
+        displayEntries();
     }
     else if (introComplete && searchComplete && passwordComplete == 0 && radioComplete == 0)
     {
@@ -75,6 +76,7 @@ void ofApp::draw() {
     {
         ////////ENDING SCENE////////
         background[4].draw(0, 0, ofGetWidth(), ofGetHeight());
+        displayEntries();
     }
 
 }
@@ -159,6 +161,7 @@ ofSetColor(0); // Set color to black for other text as well
     {
         ////////SEARCH GAME////////
         ofDrawBitmapString(m_entries[1], 2750, 350);
+        ofSetColor(255);
     }
     else if (introComplete && searchComplete && passwordComplete == 0 && radioComplete == 0)
     {
@@ -177,6 +180,12 @@ ofSetColor(0); // Set color to black for other text as well
     {
         ////////ENDING SCENE////////
         ofDrawBitmapString(m_entries[4], 2750, 350);
+        ofSetColor(255);
     }
     
+}
+
+void ofApp::mousePressed(int x, int y, int button) {
+    // Change the introComplete state to true when mouse is clicked
+    introComplete = 1;
 }
