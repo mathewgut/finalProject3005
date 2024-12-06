@@ -17,7 +17,7 @@ void ofApp::passwordGameUpdate() {
     updateArduino();
     if (m_code[0] == 1 && m_code[1] == 5 && m_code[2] == 2 && m_code[3] == 7)
     {
-        passwordComplete == 1;
+        passwordComplete = 1;
         cout << "good job!" << endl;
     }
 }

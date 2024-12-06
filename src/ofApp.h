@@ -75,7 +75,7 @@ public:
 	bool debug = true;
 
 	// radio game methods
-	void displayRadio(int potValue); // helper function to display radio frequency as string
+	void displayRadio(); // helper function to display radio frequency as string
 
 	void radioGameSetup();
 	void radioFader(int potValue,float fadeValue, float volume1, float volume2, float volume3, float volume4,
@@ -83,6 +83,7 @@ public:
 
 	int potValue = 0;
 	bool button5Pressed = false;
+	bool rightFreq = false;
 
 	ofSoundPlayer		sound_static;
 	ofSoundPlayer		sound_brightside;

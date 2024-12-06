@@ -1,7 +1,7 @@
 #include "ofApp.h"
 
-void ofApp::displayRadio(int potValue) {
-	float radioFreq = ofMap(potValue, 0, 1024, 1750.0f, 1850.0f, true);
+void ofApp::displayRadio() {
+	float radioFreq = ofMap(ofGetMouseX(), 0, 1280, 1750.0f, 1850.0f, true);
 	std::round(
 		std::round(radioFreq * 1000.0f) / 10.0f) / 100.0f;	// rounds radioFreq to 2 decimals using 2 stages of rounding
 	ofDrawBitmapString(ofToString(radioFreq) + "%.2f" + " MHz", 100, 100);
@@ -18,17 +18,22 @@ void ofApp::radioGameSetup() {
 	sound_station1.setLoop(true);
 	sound_station2.setLoop(true);
 
+
+
+
 	sound_static.play();
 	sound_brightside.play();
 	sound_station1.play();
 	sound_station2.play();
+	
 }
 
 void ofApp::radioFader(int potValue, float fadeValue, float volume1, float volume2, float volume3, float volume4, bool button5Pressed) {
 	//increases and lowers volume levels as potentiometer's range is swept through
 
-	fadeValue = ofMap(potValue, 0, 1024, 0, 1, true);	  // for potentiometer
-	//fadeValue = ofMap(ofGetMouseX(), 0, 1280, 0, 1, false);	// DEBUG: using mouse
+	//fadeValue = ofMap(potValue, 0, 1024, 0, 1, true);	  // for potentiometer
+	fadeValue = ofMap(ofGetMouseX(), 0, 1280, 0, 1, false);
+	//fadeValue = ofMap(hand1Center.x, 0, 1280, 0, 1, false);	// DEBUG: using mouse
 
 	//order:		static -> station1 -> static -> station2 -> static -> station3 -> static
 	//breakpoints:		  0.2f ->     3.5f ->   0.4f ->     0.6f ->   0.8f
@@ -38,9 +43,8 @@ void ofApp::radioFader(int potValue, float fadeValue, float volume1, float volum
 	if (fadeValue <= 0.2f) {
 		volume1 = ofClamp(1.0f - fadeValue * 5, 0, 1);
 		volume2 = ofClamp(fadeValue * 5, 0, 1);
-		if (button5Pressed == true) {
-			radioComplete = 1;
-		}
+		rightFreq = true;
+			
 	}
 	else if (fadeValue <= 0.4f) {
 		volume2 = ofClamp(1.0f - (fadeValue - 0.2f) * 5, 0, 1);

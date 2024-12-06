@@ -21,25 +21,23 @@ void ofApp::setup() {
     ofSetWindowShape(1280, 720);
     searchGameSetup();
     passwordGameSetup();
-    
+    radioGameSetup();
+ 
+   
+    sound_static.setVolume(0);
+    sound_brightside.setVolume(0);
+    sound_station1.setVolume(0);
+    sound_station2.setVolume(0);
 
-    if (introComplete && searchComplete && passwordComplete && radioComplete == 0) {
-        radioGameSetup();
-    }
-    else {
-        sound_static.stop();
-        sound_brightside.stop();
-        sound_station1.stop();
-        sound_station2.stop();
-    }
+  
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
     //passwordGameUpdate();
-
     
-    if (introComplete&& searchComplete == 0 && passwordComplete == 0 && radioComplete == 0) {
+    
+    if (introComplete && searchComplete == 0 && passwordComplete == 0 && radioComplete == 0) {
         searchGameUpdate();
     }
     if (introComplete && searchComplete && passwordComplete == 0 && radioComplete == 0) {
@@ -47,7 +45,7 @@ void ofApp::update() {
     }
 
     if (introComplete && searchComplete && passwordComplete && radioComplete == 0) {
-        displayRadio(potValue);
+        
         radioFader(potValue, fadeValue, volume1, volume1, volume1, volume4, PIN_BUTTON_5);
     }
 
@@ -192,6 +190,9 @@ vector<int> currColorObject;
 void ofApp::mousePressed(int x, int y, int button) {
     introComplete = 1;
     searchGameMousePress(x, y, button, currColorObject);
+    if (introComplete && searchComplete && passwordComplete && radioComplete == 0 && rightFreq == true) {
+        radioComplete = 1;
+    }
 }
 
 //--------------------------------------------------------------
